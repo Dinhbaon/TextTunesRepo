@@ -1,0 +1,9 @@
+{
+    "name": "TextTunes",
+    "version": "1.0",
+    "description": "Play Music based on text",
+    "manifest_version": 3,
+    "action": {
+        "default_popup": "index.html"
+    }
+  }

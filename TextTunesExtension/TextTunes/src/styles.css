@@ -1,0 +1,36 @@
+
+html {
+    background-color: black;
+    margin: 0px !important;
+    border-radius : 5px; 
+}
+
+h1 {
+    font-family: 'Comfortaa';
+    font-size: 20px;
+}
+
+.default-text-style {
+    font-family: 'Comfortaa'; 
+}
+
+.primary-color {
+    color: #D46A65; 
+}
+
+.secondary-color {
+    color: white; 
+}
+
+.spotify-primary-color {
+    color: #1DB954; 
+    font-weight: bold;
+}
+
+.center {
+    position: relative; 
+    left: 50%; 
+    top: 50%; 
+    transform:  translate(-50%, 50%);
+}
+
