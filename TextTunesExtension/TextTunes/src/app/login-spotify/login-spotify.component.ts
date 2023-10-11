@@ -43,7 +43,7 @@ export class SpotifyLoginComponent {
                           setTimeout(() => {
                             this.tokenStore.accessToken = '';
                             this.tokenStore.userSignedIn = false
-                          }, 36000);
+                          }, 3600000);
 
 
           

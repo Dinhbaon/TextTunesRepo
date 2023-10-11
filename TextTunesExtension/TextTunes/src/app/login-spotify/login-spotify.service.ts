@@ -37,6 +37,9 @@ export class LoginSpotifyStore {
         return oauthURL
     }
 
+    public getAccessToken() : string {
+        return this.accessToken; 
+    }
 
   
 
