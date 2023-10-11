@@ -3,7 +3,8 @@
   <h1><span [className]="'primary-color'">Text</span><span [className]="'secondary-color'">Tunes</span> </h1>
 </div>
 
-<div style="position:relative;"[style.width.px] = "400" [style.height.px] = "300" >
-  <SpotifyLoginComponent #wrapper ></SpotifyLoginComponent>
-  <ng-container *ngTemplateOutlet='wrapper.SpotifyLoginComponent'></ng-container>
+<div  style=" display: flex; justify-content: center; align-items: center; width: 400px; height: 300px">
+    <div *ngIf = "!(tokenStore.userSignedIn)"> 
+      <SpotifyLoginComponent  ></SpotifyLoginComponent>
+    </div>
 </div>

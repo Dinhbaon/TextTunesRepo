@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c7678395-ef91-4e73-85de-ac9f95f4516f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TextTunesExtension/TextTunes/src/app/login-spotify/login-spotify.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../TextTunesExtension/TextTunes/src/app/login-spotify/login-spotify.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TextTunesExtension/TextTunes/src/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/../TextTunesExtension/TextTunes/src/manifest.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,7 +21,19 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="0116703c-daf5-4bff-a0d1-59f924ab731e" />
+        <option name="url" value="https://github.com/Dinhbaon/TextTunesRepo.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -42,9 +55,9 @@
     "last_opened_file_path": "E:/Projects/TextTunesRepo/TextTunes",
     "onboarding.tips.debug.path": "E:/Projects/ToneTunes/src/main/java/org/example/Main.java",
     "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "MavenSettings"
   }
 }]]></component>
   <component name="RunAnythingCache">
@@ -52,8 +65,9 @@
       <command value="mvn -U idea:idea" />
       <command value="mvn install " />
       <command value="./mvnw spring-boot:run" />
-      <command value="mvn clean install -U" />
       <command value=" mvn spring-boot:run" />
+      <command value="mvn clean install -U" />
+      <command value="mvn spring-boot:run -X" />
       <command value="mvn spring-boot:run" />
     </option>
   </component>

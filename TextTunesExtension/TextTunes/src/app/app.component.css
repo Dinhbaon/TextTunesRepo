@@ -1,8 +1,26 @@
 .nav-container {
     display: flex;
     align-items: center;
-    justify-content: center;
     float: left; 
     position:relative;
+    width: 100%; 
+
+}
+
+.login-button {
+    position: relative; 
+    left: 50%; 
+    top: 50%; 
+    transform:  translate(-50%, 50%);
+    background-color: #140f0f;
+    color: #f6f6f6; 
+    border: solid 2px #df9895; 
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    cursor:pointer;
+    border-radius: 6px;
 
 }

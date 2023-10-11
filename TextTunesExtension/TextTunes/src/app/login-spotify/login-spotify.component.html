@@ -1,8 +1,6 @@
-<ng-template #SpotifyLoginComponent> 
-    <button (click)="handleSpotifyLoginClick()" [className] = "'login-button' ">
-        <div [className] = "'container'">
-            <span [className] = "'default-text-style'">Login With </span>
-            <img style="max-width: 100%; height:30px; padding-left: 10px" src="\assets\Spotify_Logo_CMYK_Green.png" alt="image"/>
-        </div>
-    </button>    
-</ng-template>
+<button [className] = "'login-button'" (click)="handleSpotifyLoginClick()" >
+    <div [className] = "'container'">
+        <span [className] = "'default-text-style'">Login With </span>
+        <img style="max-width: 100%; height:30px; padding-left: 10px" src="\assets\Spotify_Logo_CMYK_Green.png" alt="image"/>
+    </div>
+</button>    
