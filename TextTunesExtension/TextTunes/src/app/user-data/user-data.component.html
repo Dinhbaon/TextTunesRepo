@@ -1,6 +1,7 @@
 <div [className] = "'user-data-text'" >
     <h1> <span [className] = "'primary-color'">Welcome,  </span>{{userData.userData?.display_name}}
     </h1>
-    <img style="clip-path: circle(40%);"src = '{{userData.profileImageURL}}'>
-
+    <a href = '{{userData.userData?.external_urls?.["spotify"]}}' target = "_blank">
+        <img style="clip-path: circle(40%);"src = '{{userData.profileImageURL}}' >
+    </a>
 </div>

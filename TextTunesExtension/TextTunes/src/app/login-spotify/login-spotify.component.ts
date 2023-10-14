@@ -1,4 +1,4 @@
-import { Component, NgZone, TemplateRef, ViewChild } from '@angular/core';
+import { Component, NgZone, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { LoginSpotifyStore  } from './login-spotify.service';
 
 @Component({
@@ -6,14 +6,24 @@ import { LoginSpotifyStore  } from './login-spotify.service';
   templateUrl: './login-spotify.component.html',
   styleUrls: ['./login-spotify.component.css']
 })
-export class SpotifyLoginComponent {
-  @ViewChild('SpotifyLoginComponent')
-  SpotifyLoginComponent!: TemplateRef<any>;
+export class SpotifyLoginComponent implements OnInit {
 
-  callbackURI = chrome.identity.getRedirectURL() 
+  constructor(public tokenStore : LoginSpotifyStore, private ngZone : NgZone) {}
 
-  constructor(public tokenStore : LoginSpotifyStore, private ngZone : NgZone) { }
 
+   ngOnInit() {
+
+    chrome.storage.local.get('access-token', (result) => {
+        if (typeof result['access-token'] === 'undefined') {
+          this.tokenStore.userSignedIn == false
+        } else {
+          this.tokenStore.userSignedIn = true
+          this.tokenStore.accessToken = result['access-token']
+
+        }
+      })
+
+   }
 
 
   handleSpotifyLoginClick() {
@@ -38,8 +48,7 @@ export class SpotifyLoginComponent {
                           console.log("SUCCESS")
                           this.tokenStore.userSignedIn = true
                           chrome.storage.local.set({"access-token" : this.tokenStore.accessToken}, () => {console.log("token is set" + this.tokenStore.accessToken)})
-          
-                          chrome.storage.local.get(function(result){console.log(result)})
+    
                           setTimeout(() => {
                             this.tokenStore.accessToken = '';
                             this.tokenStore.userSignedIn = false
