@@ -5,11 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SpotifyLoginComponent } from './login-spotify/login-spotify.component';
 import { HttpClientModule } from '@angular/common/http';
+import { UserDataComponent } from './user-data/user-data.component';
 
 @NgModule({
   declarations: [
     AppComponent, 
-    SpotifyLoginComponent
+    SpotifyLoginComponent, 
+    UserDataComponent
   ],
   imports: [
     BrowserModule,

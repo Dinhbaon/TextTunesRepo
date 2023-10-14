@@ -3,6 +3,7 @@ html {
     background-color: black;
     margin: 0px !important;
     border-radius : 5px; 
+
 }
 
 h1 {
@@ -33,4 +34,5 @@ h1 {
     top: 50%; 
     transform:  translate(-50%, 50%);
 }
+
 
