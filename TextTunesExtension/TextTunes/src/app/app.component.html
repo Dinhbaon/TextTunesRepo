@@ -1,6 +1,6 @@
 <div [className]="'nav-container'">
   <img style="max-width: 100%; height:20px; padding-right: 5px" src="\assets\TextTunesLogo.png">
-  <h1><span [className]="'primary-color'">Text</span><span [className]="'secondary-color'">Tunes</span> </h1>
+  <h1 style="margin: 0;"><span [className]="'primary-color'">Text</span><span [className]="'secondary-color'">Tunes</span> </h1>
 </div>
 
 <div  style="width: 400px; height: 300px" [ngClass] = "{'center-child' : !(tokenStore.userSignedIn)}">
@@ -8,7 +8,12 @@
       <SpotifyLoginComponent  ></SpotifyLoginComponent>
     </ng-container>
 
-    <div *ngIf = "tokenStore.userSignedIn">
+    <ng-container *ngIf = "tokenStore.userSignedIn">
       <UserDataComponent> </UserDataComponent>
-    </div>
+    </ng-container>
+
+    <ng-container *ngIf = "tokenStore.userSignedIn">
+      <GetTextComponent></GetTextComponent>
+    </ng-container>
+    
 </div>

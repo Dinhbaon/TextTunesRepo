@@ -1,0 +1,10 @@
+.textbox {
+    width: 350px;
+    height: 170px;
+    left: 50%;
+    position: relative;
+    transform: translateX(-50%);
+    border-radius: 5px;
+    background-color: #fff;
+    
+}
