@@ -1,5 +1,6 @@
 import { Component, NgZone, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { LoginSpotifyStore  } from './login-spotify.service';
+import { AccessToken } from 'spotify-types';
 
 @Component({
   selector: 'SpotifyLoginComponent',
@@ -13,12 +14,20 @@ export class SpotifyLoginComponent implements OnInit {
 
    ngOnInit() {
 
-    chrome.storage.local.get('access-token', (result) => {
-        if (typeof result['access-token'] === 'undefined') {
+    chrome.storage.local.get('refresh-token', (result) => {
+        if (typeof result['refresh-token'] === 'undefined') {
           this.tokenStore.userSignedIn == false
         } else {
-          this.tokenStore.userSignedIn = true
-          this.tokenStore.accessToken = result['access-token']
+            this.ngZone.run(() => {
+              this.tokenStore.refreshAccessToken(result['refresh-token']).subscribe((accessToken : AccessToken) => {
+              console.log(accessToken)
+              this.tokenStore.setAccessToken(accessToken['access_token'])
+              this.tokenStore.userSignedIn = true
+            })
+          }
+        )
+          
+
 
         }
       })
@@ -40,19 +49,25 @@ export class SpotifyLoginComponent implements OnInit {
               } else {
                   if (redirect_url!.includes('callback?error=access_denied')) {
                   } else {
-                      this.tokenStore.accessToken = redirect_url!.substring(redirect_url!.indexOf('access_token=') + 13);
-                      this.tokenStore.accessToken = this.tokenStore.accessToken.substring(0, this.tokenStore.accessToken.indexOf('&'));
+                    console.log("this is the redirect url"+ redirect_url)
+                      // this.tokenStore.setAccessToken(redirect_url!)
+                      // this.tokenStore.setRefreshToken(redirect_url!)
+                      this.tokenStore.setCode(redirect_url!)
+                      console.log(this.tokenStore.code)
                       let state = redirect_url!.substring(redirect_url!.indexOf('state=') + 6);
-          
-                      // if (state === this.tokenStore.state) {
-                          console.log("SUCCESS")
+
+
+                      this.tokenStore.callback(this.tokenStore.code, "https://glbfefeehhfjbemiiogccdnbeafnfjhg.chromiumapp.org/").subscribe(
+                        (data) =>{
+                          console.log(data)
+                          this.tokenStore.setAccessToken(data['access_token'])
+                          this.tokenStore.setRefreshToken(data['refresh_token'])
+                          chrome.storage.local.set({"refresh-token" : this.tokenStore.refreshToken}, () => {console.log("refresh token is set" + this.tokenStore.accessToken)})
                           this.tokenStore.userSignedIn = true
-                          chrome.storage.local.set({"access-token" : this.tokenStore.accessToken}, () => {console.log("token is set" + this.tokenStore.accessToken)})
-    
-                          setTimeout(() => {
-                            this.tokenStore.accessToken = '';
-                            this.tokenStore.userSignedIn = false
-                          }, 3600000);
+                        }
+                      )
+                      // if (state === this.tokenStore.state) {
+                          // console.log("SUCCESS")
 
 
           

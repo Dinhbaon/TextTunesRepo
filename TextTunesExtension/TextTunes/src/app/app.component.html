@@ -3,7 +3,8 @@
   <h1 style="margin: 0;"><span [className]="'primary-color'">Text</span><span [className]="'secondary-color'">Tunes</span> </h1>
 </div>
 
-<div  style="width: 400px; height: 300px" [ngClass] = "{'center-child' : !(tokenStore.userSignedIn)}">
+
+<div  *nfIf = "!tokenStore.loading" style="width: 400px; height: 300px" [ngClass] = "{'center-child' : !(tokenStore.userSignedIn)}">
     <ng-container *ngIf = "!(tokenStore.userSignedIn)"> 
       <SpotifyLoginComponent  ></SpotifyLoginComponent>
     </ng-container>
@@ -16,4 +17,3 @@
       <GetTextComponent></GetTextComponent>
     </ng-container>
     
-</div>
