@@ -8,3 +8,9 @@
     background-color: #fff;
     
 }
+
+.getSelectTextbtn {
+    background-color: #140f0f;
+    color: #f6f6f6; 
+    border: solid 2px #df9895; 
+}

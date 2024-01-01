@@ -40,6 +40,8 @@ export class LoginSpotifyStore {
 
     userSignedIn = false; 
 
+    loading = true; 
+
     constructor(public httpClient : HttpClient) { }
 
     public getSpotifyAuthURL() {

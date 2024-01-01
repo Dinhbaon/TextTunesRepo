@@ -7,32 +7,9 @@ import { AccessToken } from 'spotify-types';
   templateUrl: './login-spotify.component.html',
   styleUrls: ['./login-spotify.component.css']
 })
-export class SpotifyLoginComponent implements OnInit {
+export class SpotifyLoginComponent {
 
   constructor(public tokenStore : LoginSpotifyStore, private ngZone : NgZone) {}
-
-
-   ngOnInit() {
-
-    chrome.storage.local.get('refresh-token', (result) => {
-        if (typeof result['refresh-token'] === 'undefined') {
-          this.tokenStore.userSignedIn == false
-        } else {
-            this.ngZone.run(() => {
-              this.tokenStore.refreshAccessToken(result['refresh-token']).subscribe((accessToken : AccessToken) => {
-              console.log(accessToken)
-              this.tokenStore.setAccessToken(accessToken['access_token'])
-              this.tokenStore.userSignedIn = true
-            })
-          }
-        )
-          
-
-
-        }
-      })
-
-   }
 
 
   handleSpotifyLoginClick() {

@@ -1,3 +1,8 @@
 <div contenteditable="true" [ngClass] = "['textbox', 'default-text-style']"> 
     <p [className] = "'primary-color'"> {{selectedText}}</p>
 </div>
+<div [className] = "'primary-color'" (click)='getText()'> 
+    <h1>
+        Get Selected Text 
+    </h1>
+</div>
