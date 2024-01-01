@@ -1,7 +1,6 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { LoginSpotifyStore } from './login-spotify/login-spotify.service';
 import { AccessToken } from 'spotify-types';
-import * as $ from 'jquery';
 
 @Component({
   selector: 'app-root',
@@ -25,7 +24,7 @@ export class AppComponent implements OnInit {
         )
 
       } else {
-        
+
           this.ngZone.run(() => {
             this.tokenStore.refreshAccessToken(result['refresh-token']).subscribe((accessToken : AccessToken) => {
             console.log(accessToken)
