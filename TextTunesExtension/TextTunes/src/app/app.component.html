@@ -3,17 +3,27 @@
   <h1 style="margin: 0;"><span [className]="'primary-color'">Text</span><span [className]="'secondary-color'">Tunes</span> </h1>
 </div>
 
-<div  style="width: 400px; height: 300px" [ngClass] = "{'center-child' : !(tokenStore.userSignedIn)}">
-    <ng-container *ngIf = "!(tokenStore.userSignedIn)"> 
+
+
+
+
+<div   style="width: 400px; height: 300px" [ngClass] = "{'center-child' : !(tokenStore.userSignedIn)}">
+
+  <div class="loading" *ngIf = "tokenStore.loading">
+    <h1>
+      Loading
+    </h1>
+  </div>   
+
+    <ng-container *ngIf = "!(tokenStore.userSignedIn) && !(tokenStore.loading)"> 
       <SpotifyLoginComponent  ></SpotifyLoginComponent>
     </ng-container>
 
-    <ng-container *ngIf = "tokenStore.userSignedIn">
+    <ng-container *ngIf = "tokenStore.userSignedIn && !(tokenStore.loading)">
       <UserDataComponent> </UserDataComponent>
     </ng-container>
 
-    <ng-container *ngIf = "tokenStore.userSignedIn">
+    <ng-container *ngIf = "tokenStore.userSignedIn && !(tokenStore.loading)">
       <GetTextComponent></GetTextComponent>
     </ng-container>
-    
 </div>

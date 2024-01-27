@@ -1,3 +1,11 @@
 <div contenteditable="true" [ngClass] = "['textbox', 'default-text-style']"> 
     <p [className] = "'primary-color'"> {{selectedText}}</p>
 </div>
+<div style="display: flex; justify-content: flex-start;">
+    <div [ngClass] = "['primary-color', 'getSelectTextbtn']" (click)='getSelectedText()'> 
+            Get Selected Text 
+    </div>
+    <div [ngClass] = "['primary-color', 'getSelectTextbtn']" (click)='getAllText()'>
+        Get All Text
+    </div>
+</div>
