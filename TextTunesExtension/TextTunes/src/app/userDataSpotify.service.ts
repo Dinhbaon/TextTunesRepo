@@ -14,13 +14,13 @@ export class userDataSpotifyService {
         
         let header = { headers : new HttpHeaders().set('Authorization', `Bearer ${this.tokenStore.getAccessToken()}`)}
 
-        let userDataFetch = this.httpClient.get<PublicUser>("https://api.spotify.com/v1/me", header)
+        this.userData$ = this.httpClient.get<PublicUser>("https://api.spotify.com/v1/me", header)
 
-        userDataFetch.subscribe((data : PublicUser) => {
-            this.userData = data; 
-            this.profileImageURL = data?.images![0].url; 
-        })
+        let userSongDataFetch$ = this.httpClient.get
+
     }
+
+    userData$ : Observable<PublicUser>; 
 
     userName : string = '';
     
