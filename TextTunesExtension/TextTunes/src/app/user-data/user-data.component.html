@@ -1,4 +1,4 @@
-<div [className] = "'user-data-text'" >
+<div [className] = "'user-data-text'" *ngIf="">
     <h1> <span [className] = "'primary-color'">Welcome,  </span>{{userData.userData?.display_name}}
     </h1>
     <a href = '{{userData.userData?.external_urls?.["spotify"]}}' target = "_blank">
