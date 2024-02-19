@@ -26,34 +26,18 @@ export class SpotifyLoginComponent {
               } else {
                   if (redirect_url!.includes('callback?error=access_denied')) {
                   } else {
-                    console.log("this is the redirect url"+ redirect_url)
                       // this.tokenStore.setAccessToken(redirect_url!)
                       // this.tokenStore.setRefreshToken(redirect_url!)
                       this.tokenStore.setCode(redirect_url!)
-                      console.log(this.tokenStore.code)
                       let state = redirect_url!.substring(redirect_url!.indexOf('state=') + 6);
-
-
                       this.tokenStore.callback(this.tokenStore.code, "https://glbfefeehhfjbemiiogccdnbeafnfjhg.chromiumapp.org/").subscribe(
                         (data) =>{
-                          console.log(data)
                           this.tokenStore.setAccessToken(data['access_token'])
                           this.tokenStore.setRefreshToken(data['refresh_token'])
                           chrome.storage.local.set({"refresh-token" : this.tokenStore.refreshToken}, () => {console.log("refresh token is set" + this.tokenStore.accessToken)})
                           this.tokenStore.userSignedIn = true
                         }
                       )
-                      // if (state === this.tokenStore.state) {
-                          // console.log("SUCCESS")
-
-
-          
-                          // chrome.browserAction.setPopup({ popup: './popup-signed-in.html' }, () => {
-                          //     sendResponse({ message: 'success' });
-                          // });
-                      // } else {
-
-                      // }
                   }
                 }
             });

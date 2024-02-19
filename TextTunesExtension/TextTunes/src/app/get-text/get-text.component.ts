@@ -1,4 +1,5 @@
 // get-text.component.ts
+import { HttpClient } from '@angular/common/http';
 import { Component, NgZone } from '@angular/core';
 
 
@@ -9,7 +10,7 @@ import { Component, NgZone } from '@angular/core';
 })
 export class GetTextComponent {
 
-  constructor(private ngZone: NgZone) { }
+  constructor(private ngZone: NgZone, private httpClient : HttpClient) { }
 
   selectedText: string = 'Type, Highlight or Select All Text on the page to get a song recommendation!';
 
@@ -58,7 +59,7 @@ export class GetTextComponent {
         target: { tabId: tabId },
         func:  () => {
           let body = document.querySelector('body');
-          const excludedTags = ['nav', 'header', 'footer', 'script', 'style'];
+          const excludedTags = ['nav', 'header', 'footer', 'script', 'style', 'a'];
           
           if (document.querySelector('#content')) {
             body = document.querySelector('#content');
@@ -118,6 +119,18 @@ export class GetTextComponent {
     } catch (e) {
       console.error(e); // Log any potential errors
     }
+  }
+
+  public recommend() {
+    if (this.selectedText.length > 30) {
+      this.httpClient.post('https://pbbo1qd4je.execute-api.us-east-2.amazonaws.com/Prod/recommend/', 
+      {'message': this.selectedText}).subscribe((songData) => {
+        console.log(songData)
+      })
+    } else {
+      
+    }
+
   }
 
 }

@@ -1,43 +1,25 @@
 import json
+import shlex
+import subprocess
 from nltk.stem.porter import PorterStemmer
-from nltk.corpus import stopwords
 import nltk
-nltk.download('stopwords')
 import pickle
-
+nltk.data.path.append("/tmp")
+nltk.download("stopwords", download_dir="/tmp")
+from nltk.corpus import stopwords
 
 def lambda_handler(event, context):
-    """Sample pure Lambda function
 
-    Parameters
-    ----------
-    event: dict, required
-        API Gateway Lambda Proxy Input Format
+    filename = 'finalized_model.sav'
 
-        Event doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html#api-gateway-simple-proxy-for-lambda-input-format
-
-    context: object, required
-        Lambda Context runtime methods and attributes
-
-        Context doc: https://docs.aws.amazon.com/lambda/latest/dg/python-context-object.html
-
-    Returns
-    ------
-    API Gateway Lambda Proxy Output Format: dict
-
-        Return doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html
-    """
-
-
-    filename = '/tmp/finalized_model.sav'
+    # subprocess.check_output(shlex.split("cp finalized_model.sav /tmp"))
+    # subprocess.check_output(shlex.split("/bin/chmod 777 /tmp/finalized_model.sav"))
     TOP_RECOMMENDATIONS = 5
-    input_text = event['message']
+    input_text = json.loads(event["body"])['message']
     model = pickle.load(open(filename, 'rb'))
-
     porter = PorterStemmer()
     stop = stopwords.words('english')
-
-
+    
     def text_processing(text: str) -> str:
         text = [porter.stem(word) for word in text.split()]
         text_filter = [word for word in text if word not in stop]
@@ -49,11 +31,21 @@ def lambda_handler(event, context):
     similar_documents = model.dv.most_similar(
         new_doc_vector, topn=TOP_RECOMMENDATIONS)
     print(similar_documents)
+    recommendations = []
+    for songs in similar_documents:
+        song_name = songs[0].split("|")[0]
+        artist_name = songs[0].split("|")[1]
+        strength = songs[1]
+        recommendations.append({
+            'song_name': song_name,
+            'artist_name': artist_name, 
+            'strength': strength
+        })
     return {
         "statusCode": 200,
         "body": json.dumps(
             {
-                "recommendations": similar_documents,
+                "recommendations": recommendations,
             }
         ),
     }
