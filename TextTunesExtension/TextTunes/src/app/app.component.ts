@@ -1,6 +1,7 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { AfterContentInit, Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { LoginSpotifyStore } from './login-spotify/login-spotify.service';
 import { AccessToken } from 'spotify-types';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +11,9 @@ import { AccessToken } from 'spotify-types';
 export class AppComponent implements OnInit {
 
   title = 'TextTunes';
-
+  private _selectedIndex = new FormControl(0);
   constructor(public tokenStore : LoginSpotifyStore, public ngZone : NgZone) { }
+
 
   ngOnInit() {
 
@@ -24,7 +26,7 @@ export class AppComponent implements OnInit {
         )
 
       } else {
-
+          console.log('here')
           this.ngZone.run(() => {
             this.tokenStore.refreshAccessToken(result['refresh-token']).subscribe((accessToken : AccessToken) => {
             console.log(accessToken)
@@ -38,4 +40,15 @@ export class AppComponent implements OnInit {
 
     })
   }
+
+  
+
+  switchToRecommendationTab() {
+    this._selectedIndex.setValue(1)
+  }
+
+  get selectedIndex() {
+    return this._selectedIndex;
+  }
+
 }

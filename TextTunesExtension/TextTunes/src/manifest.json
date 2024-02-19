@@ -9,5 +9,9 @@
     "permissions" : ["identity", "storage", "scripting", "tabs", "activeTab"],
     "host_permissions": [
         "<all_urls>"
-       ]
+       ],
+    "icons": {
+        "128":"assets/TextTunesLogo.png", 
+        "48": "assets/TextTunesLogo.png"
+    }
   }

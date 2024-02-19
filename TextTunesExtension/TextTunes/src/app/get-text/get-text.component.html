@@ -1,6 +1,8 @@
-<div contenteditable="true" [ngClass] = "['textbox', 'default-text-style']"> 
-    <p [className] = "'primary-color'"> {{selectedText}}</p>
-</div>
+<mat-form-field [ngClass] = "['textbox', 'default-text-style']" subscriptSizing="dynamic" >
+    <textarea  matInput  placeholder="Type, Highlight or Select All Text on the page to get a song recommendation!" 
+    [className]="'textarea'"
+    [value]="selectedText"></textarea>
+  </mat-form-field>
 <div style="display: flex; justify-content: flex-start;">
     <div [ngClass]="['primary-color', 'getSelectTextbtn']" (click)="getSelectedText()">Selected</div>
     <div [ngClass]="['primary-color', 'getSelectTextbtn']" (click)="getAllText()">All</div>

@@ -7,21 +7,23 @@ import { SpotifyLoginComponent } from './login-spotify/login-spotify.component';
 import { HttpClientModule } from '@angular/common/http';
 import { UserDataComponent } from './user-data/user-data.component';
 import { GetTextComponent } from './get-text/get-text.component';
-import { NavbarComponent } from './navbar/navbar.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import {MatInputModule} from '@angular/material/input';
+import { RecommendationResultsComponent } from './recommendation-results/recommendation-results.component';
 @NgModule({
   declarations: [
     AppComponent, 
     SpotifyLoginComponent, 
     UserDataComponent, 
-    GetTextComponent, NavbarComponent
+    GetTextComponent, RecommendationResultsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule, 
     MatButtonModule, 
     HttpClientModule, 
-    MatTabsModule
+    MatTabsModule, 
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

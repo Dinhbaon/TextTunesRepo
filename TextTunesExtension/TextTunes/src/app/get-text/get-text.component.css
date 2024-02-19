@@ -1,13 +1,14 @@
 .textbox {
-    width: 350px;
-    height: 170px;
+
     left: 50%;
     position: relative;
     transform: translateX(-50%);
     border-radius: 5px;
     background-color: #fff;
-    overflow-y: scroll;
+    width: 350px !important;
+    height: 170px !important;
     margin-top: 10px; 
+
 }
 
 .getSelectTextbtn {
@@ -21,4 +22,11 @@
     text-align: center;
     cursor: pointer;
 
+}
+
+.textarea{
+    overflow-y: scroll;
+    resize: none;
+    width: 350px !important;
+    height: 170px !important;
 }

@@ -19,9 +19,10 @@
     <UserDataComponent> </UserDataComponent>
   </ng-container>
   <ng-container *ngIf="tokenStore.userSignedIn && !(tokenStore.loading)">
-    <mat-tab-group [ngClass]="['default-text-style', 'primary-color']"[fitInkBarToContent]='true'>
+    <mat-tab-group #tabs [ngClass]="['default-text-style', 'primary-color']"[fitInkBarToContent]='true' [selectedIndex]="selectedIndex.value"
+    (selectedIndexChange)="selectedIndex.setValue($event)">
       <mat-tab label = "Input Your Text" [ngClass]="'navbar'">
-        <GetTextComponent></GetTextComponent>
+        <GetTextComponent (getRecommendation)="switchToRecommendationTab()"></GetTextComponent>
       </mat-tab>
       <mat-tab label="Results"> Content 2 </mat-tab>
       <mat-tab label="Third"> Content 3 </mat-tab>
