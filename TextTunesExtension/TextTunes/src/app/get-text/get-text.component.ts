@@ -1,7 +1,7 @@
 // get-text.component.ts
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, EventEmitter, NgZone, OnInit, Output } from '@angular/core';
-import { from, mergeMap } from 'rxjs';
+import { Subject, from, mergeMap } from 'rxjs';
 import { Paging, SearchContent, Track } from 'spotify-types';
 import { LoginSpotifyStore } from '../login-spotify/login-spotify.service';
 import { GetTextService } from './get-text.component.service';
@@ -19,9 +19,10 @@ type SongData = {
 })
 export class GetTextComponent implements OnInit {
 
-  @Output()
-  getRecommendation: EventEmitter<any> = new EventEmitter<any>();; 
+  recommendations : Subject<SearchContent> = new Subject<SearchContent>()
 
+  @Output()
+  getRecommendation : EventEmitter<boolean> = new EventEmitter(); 
   constructor(
       private _GetTextService: GetTextService) { }
 

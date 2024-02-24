@@ -1,1 +1,17 @@
-<p>recommendation-results works!</p>
+<div class="recommendation-container">
+    <div class="progress-div" *ngIf="loading">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+
+    <div *ngIf="!loading">
+        <div class="default-text-style primary-color song-container" *ngFor="let track of tracks">
+            <img style="clip-path: circle(40%);" src="{{track.tracks!.items[0].album.images[0].url}}">
+            <div>
+                <p style="font-weight: bold;"> {{track.tracks!.items[0].name}}</p>
+                <p style="display: inline;" *ngFor="let artist of track.tracks!.items[0].artists; let isLast = last">
+                    {{artist.name}} {{isLast ? '' : ', '}}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

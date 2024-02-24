@@ -1,6 +1,6 @@
 import { Injectable, NgZone } from "@angular/core";
 import { GetTextComponent } from "./get-text.component";
-import { from, mergeMap } from "rxjs";
+import { BehaviorSubject, Observable, Subject, forkJoin, from, mergeMap } from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { SearchContent } from "spotify-types";
 import { LoginSpotifyStore } from "../login-spotify/login-spotify.service";
@@ -13,10 +13,11 @@ export class GetTextService {
 
     private _selectedText : string = 'Type, Highlight or Select All Text on the page to get a song recommendation!'; 
     private _isGoogleDocs: boolean = false
+    private _searchContentArr: Subject<SearchContent[]> = new Subject(); 
     constructor(private ngZone : NgZone, 
         private httpClient: HttpClient, 
         private _tokenStore: LoginSpotifyStore) {
-
+            this.isGoogleDocs()
     }
 
 
@@ -150,15 +151,22 @@ export class GetTextService {
       }
     
       public recommend() {
-        if (this._selectedText.length > 30) {
+        if (this._selectedText.length > 10) {
           let header = { headers : new HttpHeaders().set('Authorization', `Bearer ${this._tokenStore.getAccessToken()}`)}
           this.httpClient.post<any>('https://pbbo1qd4je.execute-api.us-east-2.amazonaws.com/Prod/recommend/',
             { 'message': this._selectedText }).pipe(
               mergeMap((songData : any) => {
-                return this.httpClient.get<SearchContent>(`https://api.spotify.com/v1/search?q=track:\"${songData['recommendations'][0]['song_name']}\" artist:\"${songData['recommendations'][0]['artist_name']}\"&type=track&limit=1`, header)
+                console.log(songData)
+                console.log(songData['recommendations'])
+                let searchObservableArr : Observable<SearchContent>[] = songData['recommendations'].map((song : any) => {
+                    return this.httpClient.get<SearchContent>(`https://api.spotify.com/v1/search?q=track:\"${song['song_name']}\" artist:\"${song['artist_name']}\"&type=track`, header)
+                })
+
+                return forkJoin(searchObservableArr)
               })
-            ).subscribe((songReturn : SearchContent) => {
-              console.log(songReturn.tracks?.items[0])
+            ).subscribe((songReturn : SearchContent[]) => {
+                console.log(songReturn); 
+                this._searchContentArr.next(songReturn); 
             })
         } else {
     
@@ -170,6 +178,9 @@ export class GetTextService {
         return this._selectedText; 
       }
 
+      get searchContentArr(): Subject<SearchContent[]> {
+        return this._searchContentArr; 
+      }
 
 }
 

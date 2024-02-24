@@ -1,7 +1,8 @@
 import { AfterContentInit, Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { LoginSpotifyStore } from './login-spotify/login-spotify.service';
-import { AccessToken } from 'spotify-types';
+import { AccessToken, SearchContent } from 'spotify-types';
 import { FormControl } from '@angular/forms';
+import { MatTabGroup } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,8 @@ export class AppComponent implements OnInit {
   title = 'TextTunes';
   private _selectedIndex = new FormControl(0);
   constructor(public tokenStore : LoginSpotifyStore, public ngZone : NgZone) { }
+  @ViewChild("tabs", { static: false })
+  tabs!: MatTabGroup;
 
 
   ngOnInit() {
@@ -44,11 +47,26 @@ export class AppComponent implements OnInit {
   
 
   switchToRecommendationTab() {
-    this._selectedIndex.setValue(1)
+    this.tabs.selectedIndex = 1
   }
 
-  get selectedIndex() {
-    return this._selectedIndex;
+  // get selectedIndex() {
+  //   return this._selectedIndex;
+  // }
+
+  switchTabs() {
+    console.log(this.tabs.selectedIndex)
+    console.log(this.tabs._allTabs)
+  }
+
+  tabLoadTimes: Date[] = [];
+
+  getTimeLoaded(index: number) {
+    if (!this.tabLoadTimes[index]) {
+      this.tabLoadTimes[index] = new Date();
+    }
+
+    return this.tabLoadTimes[index];
   }
 
 }
