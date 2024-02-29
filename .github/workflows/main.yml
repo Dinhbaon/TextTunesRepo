@@ -1,8 +1,10 @@
 name: Train ML model
+
 on:
   push: 
     paths:
-    - "'Recommendation Algo'\notebook.ipynb"
+      - 'Recommendation Algo/notebook.ipynb'
+
 jobs:
   run:
     runs-on: ubuntu-latest
@@ -12,13 +14,13 @@ jobs:
       - uses: iterative/setup-cml@v1
       - name: Install Dependencies
         run: |
-          pip install -r 'Recommendation Algo'/requirements.txt
+          pip install -r 'Recommendation Algo/requirements.txt'
       - name: Convert Notebook to python file
         run: |
-          jupyter nbconvert --to script 'Recommendation Algo'/notebook.ipynb
+          jupyter nbconvert --to script 'Recommendation Algo/notebook.ipynb'
       - name: Train Model
         run: |
-          python 'Recommendation Algo'/notebook.py
+          python 'Recommendation Algo/notebook.py'
           ls 'Recommendation Algo'
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
