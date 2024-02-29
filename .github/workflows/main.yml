@@ -19,6 +19,7 @@ jobs:
       - name: Install Dependencies
         run: |
           pip install -r 'Recommendation Algo/TextTunesLambda/recommendation/requirements.txt'
+          python -m pip install jupyter nbconvert nbformat
       - name: Convert Notebook to python file
         run: |
           jupyter nbconvert --to script 'Recommendation Algo/notebook.ipynb'
