@@ -14,7 +14,7 @@ jobs:
       - uses: iterative/setup-cml@v1
       - name: Install Dependencies
         run: |
-          pip install -r 'Recommendation Algo/requirements.txt'
+          pip install -r 'Recommendation Algo\TextTunesLambda\recommendation\requirements.txt'
       - name: Convert Notebook to python file
         run: |
           jupyter nbconvert --to script 'Recommendation Algo/notebook.ipynb'
