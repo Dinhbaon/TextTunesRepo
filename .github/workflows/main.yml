@@ -29,7 +29,7 @@ jobs:
             echo "Error: Failed to download Kaggle datasets."
             exit 1
           fi
-          mv kaggle/* /
+          sudo mv kaggle/* /
         env:
           KAGGLE_USERNAME: ${{ secrets.KaggleUsername }}
           KAGGLE_KEY: ${{ secrets.KaggleKey }}
