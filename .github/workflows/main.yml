@@ -21,21 +21,21 @@ jobs:
           pip install -r 'Recommendation Algo/TextTunesLambda/recommendation/requirements.txt'
           python -m pip install jupyter nbconvert nbformat
           pip install kaggle
-        - name: Download Kaggle dataset
-          run: |
-            mkdir -p "Recommendation Algo/kaggle/input/spotify-million-song-dataset"
-            mkdir -p "Recommendation Algo/kaggle/input/spotify-12m-songs"
-            kaggle datasets download -p "Recommendation Algo/kaggle/input/spotify-million-song-dataset" --unzip notshrirang/spotify-million-song-dataset 
-            kaggle datasets download -p "Recommendation Algo/kaggle/input/spotify-12m-songs" --unzip rodolfofigueroa/spotify-12m-songs
-            if [ $? -ne 0 ]; then
-              echo "Error: Failed to download Kaggle datasets."
-              exit 1
-            fi
-            ls "Recommendation Algo/kaggle/input/spotify-million-song-dataset"
-            ls "Recommendation Algo/kaggle/input/spotify-12m-songs"
-          env:
-            KAGGLE_USERNAME: ${{ secrets.KaggleUsername }}
-            KAGGLE_KEY: ${{ secrets.KaggleKey }}
+      - name: Download Kaggle dataset
+        run: |
+          mkdir -p "Recommendation Algo/kaggle/input/spotify-million-song-dataset"
+          mkdir -p "Recommendation Algo/kaggle/input/spotify-12m-songs"
+          kaggle datasets download -p "Recommendation Algo/kaggle/input/spotify-million-song-dataset" --unzip notshrirang/spotify-million-song-dataset 
+          kaggle datasets download -p "Recommendation Algo/kaggle/input/spotify-12m-songs" --unzip rodolfofigueroa/spotify-12m-songs
+          if [ $? -ne 0 ]; then
+            echo "Error: Failed to download Kaggle datasets."
+            exit 1
+          fi
+          ls "Recommendation Algo/kaggle/input/spotify-million-song-dataset"
+          ls "Recommendation Algo/kaggle/input/spotify-12m-songs"
+        env:
+          KAGGLE_USERNAME: ${{ secrets.KaggleUsername }}
+          KAGGLE_KEY: ${{ secrets.KaggleKey }}
       - name: Convert Notebook to python file
         run: |
           jupyter nbconvert --to script 'Recommendation Algo/notebook.ipynb'
