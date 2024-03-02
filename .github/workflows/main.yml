@@ -23,10 +23,10 @@ jobs:
           pip install kaggle
       - name: Download Kaggle dataset
         run: |
-          mkdir kaggle
-          mkdir kaggle/input
-          mkdir kaggle/input/spotify-million-song-dataset
-          mkdir kaggle/input/spotify-12m-songs
+          sudo mkdir kaggle
+          sudo mkdir kaggle/input
+          sudo mkdir kaggle/input/spotify-million-song-dataset
+          sudo mkdir kaggle/input/spotify-12m-songs
           kaggle datasets download notshrirang/spotify-million-song-dataset -p /kaggle/input/spotify-million-song-dataset/
           kaggle datasets download rodolfofigueroa/spotify-12m-songs -p /kaggle/input/spotify-12m-songs/
         env:
@@ -38,6 +38,6 @@ jobs:
       - name: Train Model
         run: |
           python 'Recommendation Algo/notebook.py'
-          ls 'Recommendation Algo'
+          sudo ls 'Recommendation Algo'
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
