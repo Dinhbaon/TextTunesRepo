@@ -21,7 +21,7 @@ jobs:
           pip install -r 'Recommendation Algo/TextTunesLambda/recommendation/requirements.txt'
           python -m pip install jupyter nbconvert nbformat
           pip install kaggle
-      -name: Download Kaggle dataset
+      - name: Download Kaggle dataset
         run: |
           mkdir kaggle
           mkdir kaggle/input
