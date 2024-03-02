@@ -11,10 +11,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python
-        # This is the version of the action for setting up Python, not the Python version.
         uses: actions/setup-python@v4
         with:
-          # Semantic version range syntax or exact version of a Python version
           python-version: '3.10'
       - name: Install Dependencies
         run: |
@@ -23,16 +21,15 @@ jobs:
           pip install kaggle
       - name: Download Kaggle dataset
         run: |
-          mkdir -p "/kaggle/input/spotify-million-song-dataset"
-          mkdir -p "/kaggle/input/spotify-12m-songs"
-          kaggle datasets download -p "/kaggle/input/spotify-million-song-dataset" --unzip notshrirang/spotify-million-song-dataset 
-          kaggle datasets download -p "/kaggle/input/spotify-12m-songs" --unzip rodolfofigueroa/spotify-12m-songs
+          mkdir -p kaggle/input/spotify-million-song-dataset
+          mkdir -p kaggle/input/spotify-12m-songs
+          kaggle datasets download -p kaggle/input/spotify-million-song-dataset --unzip notshrirang/spotify-million-song-dataset 
+          kaggle datasets download -p kaggle/input/spotify-12m-songs --unzip rodolfofigueroa/spotify-12m-songs
           if [ $? -ne 0 ]; then
             echo "Error: Failed to download Kaggle datasets."
             exit 1
           fi
-          ls "/kaggle/input/spotify-million-song-dataset"
-          ls "/kaggle/input/spotify-12m-songs"
+          mv kaggle/* /
         env:
           KAGGLE_USERNAME: ${{ secrets.KaggleUsername }}
           KAGGLE_KEY: ${{ secrets.KaggleKey }}
@@ -42,6 +39,6 @@ jobs:
       - name: Train Model
         run: |
           python 'Recommendation Algo/notebook.py'
-          sudo ls 'Recommendation Algo'
+          ls 'Recommendation Algo'
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
