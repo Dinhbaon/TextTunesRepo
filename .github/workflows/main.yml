@@ -10,6 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: aws-actions/setup-sam@v1
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -40,8 +45,12 @@ jobs:
       - name: Train Model
         run: |
           python 'Recommendation Algo/notebook.py'
-          ls 'Recommendation Algo'
-          sudo ls /
-          sudo ls
+          mv finalized_model.sav 'Recommendation Algo/TextTunesLambda/recommendation'
+      - name: Deploy via AWS SAM
+        run: |
+          cd 'Recommendation Algo/TextTunesLambda'
+          sam build
+          sam deploy
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
