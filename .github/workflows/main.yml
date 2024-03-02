@@ -21,16 +21,14 @@ jobs:
           pip install kaggle
       - name: Download Kaggle dataset
         run: |
-          mkdir -p kaggle/input/spotify-million-song-dataset
-          mkdir -p kaggle/input/spotify-12m-songs
-          kaggle datasets download -p kaggle/input/spotify-million-song-dataset --unzip notshrirang/spotify-million-song-dataset 
-          kaggle datasets download -p kaggle/input/spotify-12m-songs --unzip rodolfofigueroa/spotify-12m-songs
+          sudo mkdir -p /kaggle/input/spotify-million-song-dataset
+          sudo mkdir -p /kaggle/input/spotify-12m-songs
+          sudo kaggle datasets download -p /kaggle/input/spotify-million-song-dataset --unzip notshrirang/spotify-million-song-dataset 
+          sudo kaggle datasets download -p /kaggle/input/spotify-12m-songs --unzip rodolfofigueroa/spotify-12m-songs
           if [ $? -ne 0 ]; then
             echo "Error: Failed to download Kaggle datasets."
             exit 1
           fi
-          sudo mv kaggle/* /
-          sudo ls /kaggle
         env:
           KAGGLE_USERNAME: ${{ secrets.KaggleUsername }}
           KAGGLE_KEY: ${{ secrets.KaggleKey }}
