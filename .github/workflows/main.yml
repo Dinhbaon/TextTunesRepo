@@ -20,6 +20,18 @@ jobs:
         run: |
           pip install -r 'Recommendation Algo/TextTunesLambda/recommendation/requirements.txt'
           python -m pip install jupyter nbconvert nbformat
+          pip install kaggle
+      -name: Download Kaggle dataset
+        run: |
+          mkdir kaggle
+          mkdir kaggle/input
+          mkdir kaggle/input/spotify-million-song-dataset
+          mkdir kaggle/input/spotify-12m-songs
+          kaggle datasets download notshrirang/spotify-million-song-dataset -p /kaggle/input/spotify-million-song-dataset/
+          kaggle datasets download rodolfofigueroa/spotify-12m-songs -p /kaggle/input/spotify-12m-songs/
+        env:
+          KAGGLE_USERNAME: ${{ secrets.KaggleUsername }}
+          KAGGLE_KEY: ${{ secrets.KaggleKey }}
       - name: Convert Notebook to python file
         run: |
           jupyter nbconvert --to script 'Recommendation Algo/notebook.ipynb'
