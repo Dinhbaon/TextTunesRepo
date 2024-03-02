@@ -25,8 +25,8 @@ jobs:
         run: |
           mkdir -p kaggle/input/spotify-million-song-dataset
           mkdir -p kaggle/input/spotify-12m-songs
-          kaggle datasets download notshrirang/spotify-million-song-dataset -p kaggle/input/spotify-million-song-dataset/
-          kaggle datasets download rodolfofigueroa/spotify-12m-songs -p kaggle/input/spotify-12m-songs/
+          kaggle datasets download notshrirang/spotify-million-song-dataset -p kaggle/input/spotify-million-song-dataset/ --unzip
+          kaggle datasets download rodolfofigueroa/spotify-12m-songs -p kaggle/input/spotify-12m-songs/ --unzip
         env:
           KAGGLE_USERNAME: ${{ secrets.KaggleUsername }}
           KAGGLE_KEY: ${{ secrets.KaggleKey }}
