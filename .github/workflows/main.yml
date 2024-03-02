@@ -19,6 +19,7 @@ jobs:
           pip install -r 'Recommendation Algo/TextTunesLambda/recommendation/requirements.txt'
           python -m pip install jupyter nbconvert nbformat
           pip install kaggle
+          python -m nltk.downloader stopwords
       - name: Download Kaggle dataset
         run: |
           mkdir -p kaggle/input/spotify-million-song-dataset
