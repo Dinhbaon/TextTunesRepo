@@ -55,7 +55,7 @@ jobs:
         run: |
           cd 'Recommendation Algo/TextTunesLambda'
           sam build
-          sam deploy
+          sam deploy --no-confirm-changeset --no-fail-on-empty-changeset
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
