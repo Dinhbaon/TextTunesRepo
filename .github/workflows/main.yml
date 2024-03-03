@@ -1,0 +1,61 @@
+name: Train ML model
+
+on:
+  push: 
+    paths:
+      - 'Recommendation Algo/'
+env:
+  AWS_REGION : us-east-2
+permissions:
+      id-token: write   # This is required for requesting the JWT
+      contents: read    # This is required for actions/checkout
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: aws-actions/setup-sam@v1
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::381491988015:role/GitHubAction-AssumeRoleWithAction
+          role-session-name: GitHub_to_AWS_via_FederatedOIDC
+          aws-region: us-east-2
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install Dependencies
+        run: |
+          pip install -r 'Recommendation Algo/TextTunesLambda/recommendation/requirements.txt'
+          python -m pip install jupyter nbconvert nbformat
+          pip install kaggle
+          python -m nltk.downloader stopwords
+      - name: Download Kaggle dataset
+        run: |
+          mkdir -p kaggle/input/spotify-million-song-dataset
+          mkdir -p kaggle/input/spotify-12m-songs
+          kaggle datasets download -p kaggle/input/spotify-million-song-dataset --unzip notshrirang/spotify-million-song-dataset 
+          kaggle datasets download -p kaggle/input/spotify-12m-songs --unzip rodolfofigueroa/spotify-12m-songs
+          if [ $? -ne 0 ]; then
+            echo "Error: Failed to download Kaggle datasets."
+            exit 1
+          fi
+          sudo mv kaggle /
+        env:
+          KAGGLE_USERNAME: ${{ secrets.KaggleUsername }}
+          KAGGLE_KEY: ${{ secrets.KaggleKey }}
+      - name: Convert Notebook to python file
+        run: |
+          jupyter nbconvert --to script 'Recommendation Algo/notebook.ipynb'
+      - name: Train Model
+        run: |
+          python 'Recommendation Algo/notebook.py'
+          mv finalized_model.sav 'Recommendation Algo/TextTunesLambda/recommendation'
+      - name: Deploy via AWS SAM
+        run: |
+          cd 'Recommendation Algo/TextTunesLambda'
+          sam build
+          sam deploy --no-confirm-changeset --no-fail-on-empty-changeset
+        env:
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+

@@ -9,5 +9,20 @@ import { userDataSpotifyService } from '../userDataSpotify.service';
 })
 export class UserDataComponent {
 
-  constructor(public userData : userDataSpotifyService) { }
+  constructor(private _userData : userDataSpotifyService) { 
+    console.log(this._userData.userDataDisplayName)
+  }
+
+  get displayName(): string | null | undefined {
+    return this._userData.userDataDisplayName; 
+  }
+
+  get profilePicture() {
+    return this._userData.userProfilePicture; 
+  }
+
+  get externalUrl() {
+    return this._userData.externalUrl; 
+  }
+
 }

@@ -49,7 +49,6 @@ export class LoginSpotifyStore {
 
         let oauthURL = `https://accounts.spotify.com/authorize?client_id=${this.clientID}&response_type=${this.responseType}&redirect_uri=${this.redirectURI}&state=${this.state}&scope=${this.scope}&show_dialog=${this.showDialog}`
 
-        console.log(oauthURL)
 
         return oauthURL
     }

@@ -10,24 +10,31 @@ import { PublicUser } from "spotify-types";
   })
 export class userDataSpotifyService {
 
-    constructor(public tokenStore : LoginSpotifyStore, private httpClient : HttpClient) {
+    constructor(private _tokenStore : LoginSpotifyStore, private _httpClient : HttpClient) {
         
-        let header = { headers : new HttpHeaders().set('Authorization', `Bearer ${this.tokenStore.getAccessToken()}`)}
+        let header = { headers : new HttpHeaders().set('Authorization', `Bearer ${this._tokenStore.getAccessToken()}`)}
 
-        this.userData$ = this.httpClient.get<PublicUser>("https://api.spotify.com/v1/me", header)
+        this._httpClient.get<PublicUser>("https://api.spotify.com/v1/me", header).subscribe((user : PublicUser) => {
+            this._userData = user
+        })
 
-        let userSongDataFetch$ = this.httpClient.get
 
     }
 
-    userData$ : Observable<PublicUser>; 
-
-    userName : string = '';
     
-    userData : PublicUser | undefined= undefined; 
+    private _userData : PublicUser | undefined= undefined; 
 
-    profileImageURL : string | undefined = ''; 
 
+    get userDataDisplayName(): string | null | undefined{
+        return this._userData?.display_name; 
+    }
     
+    get userProfilePicture() :string | undefined {
+        return this._userData?.images![0].url
+    }
+
+    get externalUrl(): string |undefined{
+        return this._userData?.external_urls.spotify; 
+    }
 
 }

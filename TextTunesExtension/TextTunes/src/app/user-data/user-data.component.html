@@ -1,7 +1,7 @@
-<div [className] = "'user-data-text'" *ngIf="">
-    <h1> <span [className] = "'primary-color'">Welcome,  </span>{{userData.userData?.display_name}}
+<div [className] = "'user-data-text'">
+    <h1> <span [className] = "'primary-color'">Welcome,  </span>{{displayName}}
     </h1>
-    <a href = '{{userData.userData?.external_urls?.["spotify"]}}' target = "_blank">
-        <img style="clip-path: circle(40%);"src = '{{userData.profileImageURL}}' >
+    <a href = '{{externalUrl}}' target = "_blank">
+        <img style="clip-path: circle(40%);"src = '{{profilePicture}}' >
     </a>
 </div>

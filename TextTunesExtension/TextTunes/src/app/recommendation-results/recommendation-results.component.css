@@ -1,0 +1,31 @@
+.progress-div{
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%; 
+    width: 75%;
+    position:relative
+}
+
+.recommendation-container {
+    left: 50%;
+    position: relative;
+    transform: translateX(-50%);
+    width: 350px !important;
+    height: 200px !important;
+    margin-top: 10px; 
+    overflow-y: auto;
+    margin-bottom: 20px; 
+}
+
+.song-container {
+    color: #1DB954 !important; 
+}
+
+.song-container img {
+    max-width: 60px;
+    display: inline-block;
+}
+
+.song-container div {
+    display: inline-block;
+}

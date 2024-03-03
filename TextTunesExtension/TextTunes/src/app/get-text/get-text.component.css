@@ -1,21 +1,32 @@
 .textbox {
-    width: 350px;
-    height: 170px;
+
     left: 50%;
     position: relative;
     transform: translateX(-50%);
     border-radius: 5px;
     background-color: #fff;
-    overflow-y: scroll;
-    
+    width: 350px !important;
+    height: 170px !important;
+    margin-top: 10px; 
+
 }
 
 .getSelectTextbtn {
     border-radius: 5px;
-    width: fit-content;
+    width: 100px;
     border: solid 2px #df9895; 
     font-family: 'Comfortaa';
     margin-left: 25px;
     box-sizing: border-box;
     padding: 10px;
+    text-align: center;
+    cursor: pointer;
+
+}
+
+.textarea{
+    overflow-y: scroll;
+    resize: none;
+    width: 350px !important;
+    height: 170px !important;
 }

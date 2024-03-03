@@ -1,29 +1,33 @@
 <div [className]="'nav-container'">
   <img style="max-width: 100%; height:20px; padding-right: 5px" src="\assets\TextTunesLogo.png">
-  <h1 style="margin: 0;"><span [className]="'primary-color'">Text</span><span [className]="'secondary-color'">Tunes</span> </h1>
+  <h1 style="margin: 0;"><span [className]="'primary-color'">Text</span><span
+      [className]="'secondary-color'">Tunes</span> </h1>
 </div>
 
+<div style="width: 400px; height: 300px" [ngClass]="{'center-child' : !(tokenStore.userSignedIn)}">
 
-
-
-
-<div   style="width: 400px; height: 300px" [ngClass] = "{'center-child' : !(tokenStore.userSignedIn)}">
-
-  <div class="loading" *ngIf = "tokenStore.loading">
+  <div class="loading" *ngIf="tokenStore.loading">
     <h1>
       Loading
     </h1>
-  </div>   
+  </div>
 
-    <ng-container *ngIf = "!(tokenStore.userSignedIn) && !(tokenStore.loading)"> 
-      <SpotifyLoginComponent  ></SpotifyLoginComponent>
-    </ng-container>
+  <ng-container *ngIf="!(tokenStore.userSignedIn) && !(tokenStore.loading)">
+    <SpotifyLoginComponent></SpotifyLoginComponent>
+  </ng-container>
+  <ng-container *ngIf="tokenStore.userSignedIn && !(tokenStore.loading)">
+    <UserDataComponent> </UserDataComponent>
+  </ng-container>
+  <ng-container *ngIf="tokenStore.userSignedIn && !(tokenStore.loading)">
+    <mat-tab-group #tabs dynamicHeight [ngClass]="['default-text-style', 'primary-color']" fitInkBarToContent='true'
+    (selectedTabChange)="switchTabs()">
+      <mat-tab label="Input Your Text" >
+        <GetTextComponent (getRecommendation)="switchToRecommendationTab()"></GetTextComponent>
+      </mat-tab>
+      <mat-tab label="Results">
+        <app-recommendation-results></app-recommendation-results>
+      </mat-tab>
+    </mat-tab-group>
+  </ng-container>
 
-    <ng-container *ngIf = "tokenStore.userSignedIn && !(tokenStore.loading)">
-      <UserDataComponent> </UserDataComponent>
-    </ng-container>
-
-    <ng-container *ngIf = "tokenStore.userSignedIn && !(tokenStore.loading)">
-      <GetTextComponent></GetTextComponent>
-    </ng-container>
 </div>
