@@ -32,13 +32,12 @@ def lambda_handler(event, context):
         new_doc_vector, topn=TOP_RECOMMENDATIONS)
     print(similar_documents)
     recommendations = []
+    recommendations = []
     for songs in similar_documents:
-        song_name = songs[0].split("|")[0]
-        artist_name = songs[0].split("|")[1]
+        song_id = songs[0]
         strength = songs[1]
         recommendations.append({
-            'song_name': song_name,
-            'artist_name': artist_name, 
+            'song_id': song_id,
             'strength': strength
         })
     return {
