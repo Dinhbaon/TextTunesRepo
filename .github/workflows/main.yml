@@ -3,7 +3,7 @@ name: Train ML model
 on:
   push: 
     paths:
-      - 'Recommendation Algo/'
+      - 'Recommendation Algo/*'
 env:
   AWS_REGION : us-east-2
 permissions:
