@@ -4,9 +4,6 @@ on:
   push: 
     paths:
       - 'Recommendation Algo/notebook.ipynb'
-env:
-  AWS_DEFAULT_REGION: us-east-2
-  AWS_DEFAULT_OUTPUT: json
 jobs:
   run:
     runs-on: ubuntu-latest
