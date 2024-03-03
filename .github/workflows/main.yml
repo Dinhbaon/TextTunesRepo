@@ -6,6 +6,9 @@ on:
       - 'Recommendation Algo/notebook.ipynb'
 env:
   AWS_REGION : us-east-2
+permissions:
+      id-token: write   # This is required for requesting the JWT
+      contents: read    # This is required for actions/checkout
 jobs:
   run:
     runs-on: ubuntu-latest
